@@ -3,7 +3,7 @@ package scale
 import (
 	"strings"
 
-	"github.com/gophergala2016/chopher/note"
+	"github.com/Aorioli/chopher/note"
 )
 
 type Chord []int

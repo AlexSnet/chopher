@@ -1,17 +1,24 @@
 {
-	"ImportPath": "github.com/gophergala2016/chopher",
-	"GoVersion": "go1.5.3",
+	"ImportPath": "github.com/Aorioli/chopher",
+	"GoVersion": "go1.6",
+	"GodepVersion": "v74",
 	"Packages": [
 		"./..."
 	],
 	"Deps": [
+		{
+			"ImportPath": "github.com/gopherjs/gopherjs/js",
+			"Comment": "go1.5-88-g72e303c",
+			"Rev": "72e303cb5f235b23471872477b57e573dc1c71d0"
+		},
 		{
 			"ImportPath": "github.com/gorilla/context",
 			"Rev": "1c83b3eabd45b6d76072b66b746c20815fb2872d"
 		},
 		{
 			"ImportPath": "github.com/gorilla/handlers",
-			"Rev": "d98201caad978d5205d7ed2f596c6a42542727d2"
+			"Comment": "v1.1-10-g801d6e3",
+			"Rev": "801d6e3b008914ee888c9ab9b1b379b9a56fbf44"
 		},
 		{
 			"ImportPath": "github.com/gorilla/mux",
@@ -19,7 +26,7 @@
 		},
 		{
 			"ImportPath": "github.com/jtolds/gls",
-			"Rev": "9a4a02dbe491bef4bab3c24fd9f3087d6c4c6690"
+			"Rev": "8ddce2a84170772b95dd5d576c48d517b22cac63"
 		},
 		{
 			"ImportPath": "github.com/smartystreets/assertions",
@@ -27,7 +34,22 @@
 			"Rev": "01fedaa993c0a9f9aa55111501cd7c81a49e812e"
 		},
 		{
+			"ImportPath": "github.com/smartystreets/assertions/internal/oglematchers",
+			"Comment": "1.5.0-405-g01fedaa",
+			"Rev": "01fedaa993c0a9f9aa55111501cd7c81a49e812e"
+		},
+		{
 			"ImportPath": "github.com/smartystreets/goconvey/convey",
+			"Comment": "1.5.0-455-g8d46e6d",
+			"Rev": "8d46e6d51692cda11b447f0d01ce83a0ad84aeab"
+		},
+		{
+			"ImportPath": "github.com/smartystreets/goconvey/convey/gotest",
+			"Comment": "1.5.0-455-g8d46e6d",
+			"Rev": "8d46e6d51692cda11b447f0d01ce83a0ad84aeab"
+		},
+		{
+			"ImportPath": "github.com/smartystreets/goconvey/convey/reporting",
 			"Comment": "1.5.0-455-g8d46e6d",
 			"Rev": "8d46e6d51692cda11b447f0d01ce83a0ad84aeab"
 		}

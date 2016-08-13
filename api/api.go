@@ -7,9 +7,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gophergala2016/chopher/hasher"
-	"github.com/gophergala2016/chopher/karplus"
-	"github.com/gophergala2016/chopher/wave"
+	"github.com/Aorioli/chopher/hasher"
+	"github.com/Aorioli/chopher/karplus"
+	"github.com/Aorioli/chopher/wave"
 )
 
 func FileUploadHandler(w http.ResponseWriter, r *http.Request) {

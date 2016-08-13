@@ -5,8 +5,8 @@ import (
 	"math"
 	"math/rand"
 
-	"github.com/gophergala2016/chopher/note"
-	"github.com/gophergala2016/chopher/song"
+	"github.com/Aorioli/chopher/note"
+	"github.com/Aorioli/chopher/song"
 )
 
 type Note struct {
@@ -20,10 +20,9 @@ func NewNote(n song.SongNote, samplingRate int) *Note {
 			float64(samplingRate)/n.Note.Frequency(),
 		),
 	))
-	r := rand.New(rand.NewSource(1))
 
 	for i := 0; i < len(buf); i++ {
-		buf[i] = r.Float64() - 0.5
+		buf[i] = rand.Float64()*2.0 - 1.0
 	}
 	return &Note{
 		Note:   n,
@@ -64,34 +63,25 @@ func (s *Song) Sound(w io.Writer) {
 		increment = float64(s.Song.Tempo) / float64(s.SamplingRate)
 	)
 
-	temp := make([]*Note, 0, len(s.Song.Notes)/10+1)
 	for len(s.CurrentNotes) > 0 {
 		var sample float64
-		temp = make([]*Note, 0, len(s.Song.Notes)/10+1)
-		for _, n := range s.CurrentNotes {
+		for i, n := range s.CurrentNotes {
 			sample += n.Sound()
-			if n.Note.IsValid(time) {
-				temp = append(temp, n)
+			if !n.Note.IsValid(time) {
+				s.CurrentNotes = append(s.CurrentNotes[:i], s.CurrentNotes[i+1:]...)
 			}
 		}
 
-		sampleValue := int16(sample * 32767)
-		w.Write([]byte{byte(sampleValue), byte(sampleValue >> 8)})
+		sampleValue := int16(sample * 2048)
+		w.Write([]byte{byte(sampleValue & 0xFF), byte((sampleValue >> 8) & 0xFF)})
 		time += increment
 
 		for i := lastNote + 1; i < len(s.Song.Notes); i++ {
 			n := s.Song.Notes[i]
 			if n.IsValid(time) {
-				temp = append(temp, NewNote(n, s.SamplingRate))
+				s.CurrentNotes = append(s.CurrentNotes, NewNote(n, s.SamplingRate))
 				lastNote = i
 			}
 		}
-
-		s.CurrentNotes = temp
-
 	}
 }
-
-// func writeLittleEndian(w io.Writer, value int16) {
-// 	w.Write(p []byte)
-// }

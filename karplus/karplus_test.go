@@ -3,8 +3,8 @@ package karplus
 import (
 	"testing"
 
-	"github.com/gophergala2016/chopher/note"
-	"github.com/gophergala2016/chopher/song"
+	"github.com/Aorioli/chopher/note"
+	"github.com/Aorioli/chopher/song"
 )
 
 type FakeWriter struct{}

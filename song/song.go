@@ -1,14 +1,14 @@
 package song
 
 import (
-	"github.com/gophergala2016/chopher/note"
-	"github.com/gophergala2016/chopher/scale"
+	"github.com/Aorioli/chopher/note"
+	"github.com/Aorioli/chopher/scale"
 )
 
 const (
-	Fast   Tempo = 1.2
-	Medium Tempo = 0.8
-	Slow   Tempo = 0.4
+	Fast   Tempo = 1.0
+	Medium Tempo = 0.5
+	Slow   Tempo = 0.33
 )
 
 // Tempo is the duration of the Full note in seconds

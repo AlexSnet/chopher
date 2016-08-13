@@ -3,9 +3,9 @@ package hasher
 import (
 	"io"
 
-	"github.com/gophergala2016/chopher/note"
-	"github.com/gophergala2016/chopher/scale"
-	"github.com/gophergala2016/chopher/song"
+	"github.com/Aorioli/chopher/note"
+	"github.com/Aorioli/chopher/scale"
+	"github.com/Aorioli/chopher/song"
 )
 
 var (
@@ -20,6 +20,7 @@ var (
 		0: note.Quarter,
 		1: note.Half,
 		2: note.Full,
+		3: note.Double,
 	}
 )
 
@@ -33,7 +34,7 @@ func New(r io.Reader) Hasher {
 	r.Read(buf)
 
 	speed := song.Slow + song.Tempo(float64(buf[0])/256)
-	scl := scaleMap[int(buf[1])%4]
+	scl := scaleMap[int(buf[1])%len(scaleMap)]
 	var sum int
 	for i := 1; i < len(buf); i++ {
 		sum += int(buf[i])
@@ -60,10 +61,11 @@ func (h *Hasher) Hash() *song.Song {
 	}
 	return h.Song
 }
+
 func (h *Hasher) Write(p []byte) (int, error) {
 	for i := 1; i < len(p); i = i + 2 {
 		add := h.Song.Scale.Notes[int(p[i-1])%len(h.Song.Scale.Notes)]
-		h.Song = h.Song.Add(add, durationMap[int(p[i])%3])
+		h.Song = h.Song.Add(add, durationMap[int(p[i])%len(durationMap)])
 	}
 	return len(p), nil
 }
