@@ -63,25 +63,30 @@ func (s *Song) Sound(w io.Writer) {
 		increment = float64(s.Song.Tempo) / float64(s.SamplingRate)
 	)
 
+	temp := make([]*Note, 0, len(s.Song.Notes)/10+1)
 	for len(s.CurrentNotes) > 0 {
 		var sample float64
-		for i, n := range s.CurrentNotes {
+		temp = make([]*Note, 0, len(s.Song.Notes)/10+1)
+		for _, n := range s.CurrentNotes {
 			sample += n.Sound()
-			if !n.Note.IsValid(time) {
-				s.CurrentNotes = append(s.CurrentNotes[:i], s.CurrentNotes[i+1:]...)
+			if n.Note.IsValid(time) {
+				temp = append(temp, n)
 			}
 		}
 
 		sampleValue := int16(sample * 2048)
-		w.Write([]byte{byte(sampleValue & 0xFF), byte((sampleValue >> 8) & 0xFF)})
+		w.Write([]byte{byte(sampleValue), byte(sampleValue >> 8)})
 		time += increment
 
 		for i := lastNote + 1; i < len(s.Song.Notes); i++ {
 			n := s.Song.Notes[i]
 			if n.IsValid(time) {
-				s.CurrentNotes = append(s.CurrentNotes, NewNote(n, s.SamplingRate))
+				temp = append(temp, NewNote(n, s.SamplingRate))
 				lastNote = i
 			}
 		}
+
+		s.CurrentNotes = temp
+
 	}
 }

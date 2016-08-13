@@ -50,6 +50,13 @@ type Note struct {
 	Octave int
 }
 
+func New(note, octave int) Note {
+	return Note{
+		Note:   note,
+		Octave: octave,
+	}
+}
+
 // AddHalfSteps adds a number of half steps and returns a new note
 func (n Note) AddHalfSteps(hs int) Note {
 	t := n.Note + hs
@@ -77,12 +84,12 @@ func HalfstepDistance(from, to Note) int {
 	return (to.Octave-from.Octave)*12 + (to.Note - from.Note)
 }
 
-var notes = [...]string{
+var Notes = [...]string{
 	"C", "C#", "D", "D#",
 	"E", "F", "F#", "G",
 	"G#", "A", "A#", "B",
 }
 
 func (n Note) String() string {
-	return fmt.Sprintf("%s%d", notes[n.Note], n.Octave)
+	return fmt.Sprintf("%s%d", Notes[n.Note], n.Octave)
 }

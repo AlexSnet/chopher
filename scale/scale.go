@@ -69,8 +69,10 @@ var (
 
 // Scale is defined by the notes and the pattern they form
 type Scale struct {
-	Notes  []note.Note
-	Chords []Chord
+	Notes   []note.Note
+	Chords  []Chord
+	Key     note.Note
+	Pattern Pattern
 }
 
 // Scale turn a pattern to a scale using a key note
@@ -85,8 +87,10 @@ func (p Pattern) New(key note.Note, reverse bool) Scale {
 	}
 
 	return Scale{
-		Notes:  n,
-		Chords: p.Chords,
+		Pattern: p,
+		Key:     key,
+		Notes:   n,
+		Chords:  p.Chords,
 	}
 }
 
